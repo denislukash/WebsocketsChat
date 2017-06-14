@@ -1,40 +1,68 @@
 "use strict";
 
 $(document).ready(function () {
-    let username;
-    let roomBefore;
-    let socket = io();
+    let username,
+        roomBefore,
+        privateMessage = false,
+        socket = io();
 
     $('[id^=room-]').on('click', function (e) {
         let room = $(this)[0].id;
 
         $('.panel-heading').find('span').text(`${room}`);
 
-        if (username !== 'undefined') {
-            socket.emit('leave', roomBefore);
+        if (username) {
+            socket.emit('leave_room', roomBefore);
             $('.message-bubble').remove();
         }
-        username = socket.id;
+
+        username = socket.id.substr(1, 4);
         roomBefore = room;
 
-        // let socket = io.connect();
+        socket.emit('join_room', room);
+    });
 
-        socket.emit('room', room);
-
-        socket.on('chat message', function (msg) {
-            $('#message').append(`<div class="row message-bubble"><p class="text-muted">${socket.id}</p><span>${msg}</span></div>`);
+    socket
+        /*
+        This callback signed on event message from server, when user join or leave room,
+        append block of html code with message to chat
+        @param {string} text of message
+        * */
+        .on('server message', function (msg) {
+            $('#message').append(`<div class="row message-bubble"><p style="color: aqua">Server message</p><span>${msg}</span></div>`);
+        })
+        /*
+        This callback signed on event of global message in room,
+        append block of html code with message to chat
+        @param {object} text of message
+        * */
+        .on('chat message', function (data) {
+            $('#message').append(`<div class="row message-bubble"><p class="text-success" style="cursor: pointer">${data.userName}</p><span>${data.msg}</span></div>`);
+        /*
+         This callback signed on event click on user name in chat for start type private message
+         * */
+            $('.text-success').on('click', function (e) {
+                $('#enter-message').find('input').val($(this)[0].innerText + ": ");
+                privateMessage = true;
+            });
         });
 
-        $('#enter-message').submit(function (e) {
-            let data = {};
-            data.msg = $(this)[0].elements.message.value;
-            data.room = room;
+    $('#enter-message').submit(function (e) {
+        let data = {};
+        data.msg = $(this)[0].elements.message.value;
+        data.room = roomBefore;
+        data.userName = username;
 
+        if (privateMessage) {
+            data.toUser = $(this)[0].elements.message.value.split(':')[0];
+            socket.emit('private message', data);
+            privateMessage = false;
+        } else {
             socket.emit('chat message', data);
-            $(this)[0].elements.message.value = '';
-            return false;
-        });
+        }
 
-        e.stopPropagation();
+        $(this)[0].elements.message.value = '';
+
+        e.preventDefault();
     });
 });

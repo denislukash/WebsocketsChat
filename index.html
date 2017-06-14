@@ -17,13 +17,15 @@
         .rooms-container {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
         }
         .room {
             border: 1px solid black;
             margin-left: 15px;
         }
-        .room:hover {
-            cursor: pointer;
+        .room:hover,
+        text-muted:hover {
+            cursor: pointer !important;
         }
         .message-bubble
         {
@@ -53,16 +55,11 @@
                 <span>Panel heading without title</span>
             </div>
             <div class="panel-body">
-                <div class="container" id="message">
-                    <!--<div class="row message-bubble">-->
-                        <!--<p class="text-muted">Matt Townsen</p>-->
-                        <!--<span>Why is yo shit so broke?</span>-->
-                    <!--</div>-->
-                </div>
+                <div class="container" id="message"></div>
                 <div class="panel-footer">
                     <div class="input-group">
                         <form action="" id="enter-message">
-                            <input type="text" class="form-control" name="message" placeholder="Type message">
+                            <input style="width: 100%" type="text" class="form-control" name="message" placeholder="Type message">
                         </form>
                     </div>
                 </div>
