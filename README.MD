@@ -13,6 +13,6 @@
 1. Install all dependencies from composer, use `php composer.phar install`
 
 >Start app
->* For start server use `node index.js` in project folder
+>* For start server use `node server.js` in project folder
 >* Follow http://localhost:3000/ in your browser
 >* Use `php index.php` in project folder, for send message to all users from php script
