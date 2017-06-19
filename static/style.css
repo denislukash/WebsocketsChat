@@ -1,0 +1,24 @@
+.rooms-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.room {
+    border: 1px solid black;
+    margin-left: 15px;
+}
+.room:hover,
+text-muted:hover {
+    cursor: pointer !important;
+}
+.message-bubble
+{
+    padding: 10px 0px 10px 0px;
+}
+.message-bubble:nth-child(even) { background-color: #F5F5F5; }
+.message-bubble > *
+{
+    padding-left: 10px;
+}
+.panel-body { padding: 0px; }
+.panel-heading { background-color: #3d6da7 !important; color: #000000 !important; }
