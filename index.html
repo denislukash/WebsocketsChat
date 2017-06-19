@@ -7,38 +7,13 @@
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
 
     <script src="/jquery-3.2.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.2/socket.io.js"></script>
     <script src="/main.js"></script>
-    <style>
-        .rooms-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .room {
-            border: 1px solid black;
-            margin-left: 15px;
-        }
-        .room:hover,
-        text-muted:hover {
-            cursor: pointer !important;
-        }
-        .message-bubble
-        {
-            padding: 10px 0px 10px 0px;
-        }
-        .message-bubble:nth-child(even) { background-color: #F5F5F5; }
-        .message-bubble > *
-        {
-            padding-left: 10px;
-        }
-        .panel-body { padding: 0px; }
-        .panel-heading { background-color: #3d6da7 !important; color: #000000 !important; }
-    </style>
 </head>
 <body>
 <div class="rooms-container">
@@ -59,7 +34,7 @@
                 <div class="panel-footer">
                     <div class="input-group">
                         <form action="" id="enter-message">
-                            <input style="width: 100%" type="text" class="form-control" name="message" placeholder="Type message">
+                            <input type="text" class="form-control" name="message" placeholder="Type message">
                         </form>
                     </div>
                 </div>

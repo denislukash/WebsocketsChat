@@ -28,7 +28,7 @@ $(document).ready(function () {
         append block of html code with message to chat
         @param {string} text of message
         * */
-        .on('server message', function (msg) {
+        .on('server_message', function (msg) {
             $('#message').append(`<div class="row message-bubble"><p style="color: aqua">Server message</p><span>${msg}</span></div>`);
         })
         /*
@@ -36,7 +36,7 @@ $(document).ready(function () {
         append block of html code with message to chat
         @param {object} text of message
         * */
-        .on('chat message', function (data) {
+        .on('chat_message', function (data) {
             $('#message').append(`<div class="row message-bubble"><p class="text-success" style="cursor: pointer">${data.userName}</p><span>${data.msg}</span></div>`);
         /*
          This callback signed on event click on user name in chat for start type private message
@@ -55,10 +55,10 @@ $(document).ready(function () {
 
         if (privateMessage) {
             data.toUser = $(this)[0].elements.message.value.split(':')[0];
-            socket.emit('private message', data);
+            socket.emit('private_message', data);
             privateMessage = false;
         } else {
-            socket.emit('chat message', data);
+            socket.emit('chat_message', data);
         }
 
         $(this)[0].elements.message.value = '';

@@ -16,7 +16,7 @@ http.listen(3000, function() {
 
 let usersData = {};
 
-io.on('connection', function(socket){
+io.on('connection', function(socket) {
     let userName = socket.id.substr(1, 4);
     usersData[userName] = socket.id;
 
@@ -27,14 +27,14 @@ io.on('connection', function(socket){
         * */
         .on('join_room', function(room) {
             socket.join(room);
-            io.in(room).emit('server message', `User ${userName} joined in ${room}`);
+            io.in(room).emit('server_message', `User ${userName} joined in ${room}`);
         })
         /*
          This callback send message to all user in chat
          @param {object} info about user, room and text message
          * */
-        .on('chat message', function(data) {
-            io.in(data.room).emit('chat message', data);
+        .on('chat_message', function(data) {
+            io.in(data.room).emit('chat_message', data);
         })
         /*
          This callback disconnect user from room, and send info message
@@ -42,15 +42,15 @@ io.on('connection', function(socket){
          * */
         .on('leave_room', function (room) {
             socket.leave(room);
-            io.in(room).emit('server message', `User ${userName} leave ${room}`);
+            io.in(room).emit('server_message', `User ${userName} leave ${room}`);
         })
         /*
          This callback send private message to destination user and sender
          @param {object} info about sender, recipient and text message
          * */
-        .on('private message', function (data) {
-            io.to(usersData[data.toUser]).emit('chat message', data);
-            io.to(usersData[data.userName]).emit('chat message', data);
+        .on('private_message', function (data) {
+            io.to(usersData[data.toUser]).emit('chat_message', data);
+            io.to(usersData[data.userName]).emit('chat_message', data);
         })
         /*
          This callback send message to all users when php script is run
@@ -59,7 +59,7 @@ io.on('connection', function(socket){
         .on('message_from_php', function (data) {
             if (data.key === secret_key) {
                 for (let user in usersData) {
-                    socket.broadcast.to(usersData[user]).emit('server message', data.msg);
+                    socket.broadcast.to(usersData[user]).emit('server_message', data.msg);
                 }
             }
         });
