@@ -1,6 +1,6 @@
 "use strict";
 
-$(document).ready(function () {
+$(document).ready(function() {
     let username,
         roomBefore,
         privateMessage = false,
@@ -29,7 +29,9 @@ $(document).ready(function () {
         @param {string} text of message
         * */
         .on('server_message', function (msg) {
-            $('#message').append(`<div class="row message-bubble"><p style="color: aqua">Server message</p><span>${msg}</span></div>`);
+            $('#message').append(`<div class="row message-bubble">` +
+                `<p style="color: aqua">Server message</p>` +
+                `<span>${msg}</span></div>`);
         })
         /*
         This callback signed on event of global message in room,
@@ -37,12 +39,15 @@ $(document).ready(function () {
         @param {object} text of message
         * */
         .on('chat_message', function (data) {
-            $('#message').append(`<div class="row message-bubble"><p class="text-success" style="cursor: pointer">${data.userName}</p><span>${data.msg}</span></div>`);
+            $('#message').append(`<div class="row message-bubble">` +
+                `<p class="text-success" style="cursor: pointer">` +
+                `${data.userName}</p><span>${data.msg}</span></div>`);
         /*
          This callback signed on event click on user name in chat for start type private message
          * */
             $('.text-success').on('click', function (e) {
-                $('#enter-message').find('input').val($(this)[0].innerText + ": ");
+                $('#enter-message').find('input')
+                    .val($(this)[0].innerText + ": ");
                 privateMessage = true;
             });
         });

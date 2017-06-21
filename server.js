@@ -27,7 +27,8 @@ io.on('connection', function(socket) {
         * */
         .on('join_room', function(room) {
             socket.join(room);
-            io.in(room).emit('server_message', `User ${userName} joined in ${room}`);
+            io.in(room)
+                .emit('server_message', `User ${userName} joined in ${room}`);
         })
         /*
          This callback send message to all user in chat
@@ -42,7 +43,8 @@ io.on('connection', function(socket) {
          * */
         .on('leave_room', function (room) {
             socket.leave(room);
-            io.in(room).emit('server_message', `User ${userName} leave ${room}`);
+            io.in(room)
+                .emit('server_message', `User ${userName} leave ${room}`);
         })
         /*
          This callback send private message to destination user and sender
@@ -59,7 +61,8 @@ io.on('connection', function(socket) {
         .on('message_from_php', function (data) {
             if (data.key === secret_key) {
                 for (let user in usersData) {
-                    socket.broadcast.to(usersData[user]).emit('server_message', data.msg);
+                    socket.broadcast.to(usersData[user])
+                        .emit('server_message', data.msg);
                 }
             }
         });
