@@ -8,7 +8,7 @@
 
 **Installation guide:**
 
-1. Install all dependencies from npm, use `npm istall --save`
+1. Install all dependencies from npm, use `npm istall`
 1. Install composer to project, use `curl -s http://getcomposer.org/installer | php`
 1. Install all dependencies from composer, use `php composer.phar install`
 
